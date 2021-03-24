@@ -117,3 +117,4 @@ loop do # begin main loop
 end # end main loop
 
 puts "Thank you for using our Mortgage Calculator!"
+
