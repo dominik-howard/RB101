@@ -106,8 +106,8 @@ loop do # begin main loop
   ldm = loan_in_months(ldr_input.to_i)
   mortgage = mortgage_calculator(principal, mir, ldm)
 
-  puts "Your mortgage is calculated at $#{mortgage.to_f.ceil(2)} for #{ldm}
-  months at #{mir.ceil(4)}% interest per month."
+  puts "Your mortgage is calculated at $#{format("%.2f", mortgage)} for #{ldm}
+  months at #{format("%.4f", mir)}% interest per month."
   puts
   puts "Would you like to perform another mortgage calculation?
   (Type Y or Yes if so)"
