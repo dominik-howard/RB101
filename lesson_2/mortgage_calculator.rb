@@ -35,18 +35,18 @@ def float?(number)
 end
 
 def apr_check(apr)
-  apr = apr.split(" ").join()
-  apr = apr.split("%").join()
+  apr.split(" ").join()
+  apr.split("%").join()
 end
 
 def principal_check(principal)
-  principal = principal.split(" ").join()
-  principal = principal.split("$").join()
-  principal = principal.split(",").join()
+  principal.split(" ").join()
+  principal.split("$").join()
+  principal.split(",").join()
 end
 
 def mortgage_calculator(principal, mir, ldm)
-  calc =  (principal * ( mir  /  ( 1  -  ( 1  +  mir ) ** ( - ldm ) ) ) )
+  (principal * ( mir  /  ( 1  -  ( 1  +  mir ) ** ( - ldm ) ) ) )
 end
 
 def prompt(message)
