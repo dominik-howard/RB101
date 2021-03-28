@@ -10,6 +10,12 @@ require 'yaml'
 MESSAGES = YAML.load_file('calculator_messages.yml')
 # puts MESSAGES.inspect
 
+def messages(message, lang='en')
+  MESSAGES[lang][message]
+end
+
+LANGUAGE = 'es'
+
 def prompt(message)
   Kernel.puts("=> #{message}")
 end
@@ -30,14 +36,14 @@ def operation_to_message(op)
   var
 end
 
-prompt(MESSAGES['welcome'])
+prompt(messages('welcome', LANGUAGE))
 
 name = ''
 loop do
   name = Kernel.gets().chomp()
 
   if name.empty?
-    prompt(MESSAGES['valid_name'])
+    prompt(messages('valid_name', LANGUAGE))
   else
     break
   end
@@ -51,24 +57,24 @@ loop do # main loop
   operator = nil
 
   loop do
-    prompt(MESSAGES['first_number'])
+    prompt(messages('first_number', LANGUAGE))
     number1 = Kernel.gets().chomp()
 
     if valid_number?(number1)
       break
     else
-      prompt(MESSAGES['valid_number'])
+      prompt(messages('valid_number', LANGUAGE))
     end
   end
 
   loop do
-    prompt(MESSAGES['second_number'])
+    prompt(messages('second_number', LANGUAGE))
     number2 = Kernel.gets().chomp()
 
     if valid_number?(number2)
       break
     else
-      prompt(MESSAGES['valid_number'])
+      prompt(messages('valid_number', LANGUAGE))
     end
   end
 
@@ -88,7 +94,7 @@ loop do # main loop
     if %w(1 2 3 4).include?(operator)
       break
     else
-      prompt(MESSAGES['must_choose'])
+      prompt(messages('must_choose', LANGUAGE))
     end
   end
 
@@ -103,9 +109,9 @@ loop do # main loop
 
   prompt("The result is #{result}.")
 
-  prompt(MESSAGES['perform_again'])
+  prompt(messages('perform_again', LANGUAGE))
   answer = gets().chomp()
   break unless answer.downcase().start_with?("y")
 end
 
-prompt(MESSAGES['thank_you'])
+prompt(messages('thank_you', LANGUAGE))

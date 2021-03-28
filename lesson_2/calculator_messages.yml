@@ -1,11 +1,20 @@
+# reorganizing 
 
-welcome: "Welcome to Calculator! Enter your name:"
-valid_name: "Make sure to enter a valid name."
-valid_number: "Hmm...that doesn't look like a valid number."
-first_number: "What's the first number?"
-second_number: "What's the second number?"
-must_choose: "Must choose 1, 2, 3, or 4."
-perform_again: "Do you want to perform another calculation? (Y to calculate again)"
-thank_you: "Thank you for choosing Calculator. Goodbye!"
-
-# ... rest of file omitted for brevity
+en: 
+  welcome: "Welcome to Calculator! Enter your name:"
+  valid_name: "Make sure to enter a valid name."
+  valid_number: "Hmm...that doesn't look like a valid number."
+  first_number: "What's the first number?"
+  second_number: "What's the second number?"
+  must_choose: "Must choose 1, 2, 3, or 4."
+  perform_again: "Do you want to perform another calculation? (Y to calculate again)"
+  thank_you: "Thank you for choosing Calculator. Goodbye!"
+es:
+  welcome: "¡Bienvenido a Calculadora! Ingresa tu nombre:"
+  valid_name: "Asegúrate de ingresar un nombre válido"
+  valid_number: "Hmm ... ese no parece un número válido."
+  first_number: "¿Cuál es el primer número?"
+  second_number: "¿Cuál es el segundo número?"
+  must_choose: "Debe elegir 1, 2, 3 o 4."
+  perform_again: "¿Quieres realizar otro cálculo? (Y para calcular de nuevo)"
+  thank_you: "Gracias por elegir Calculadora. ¡Adiós!"

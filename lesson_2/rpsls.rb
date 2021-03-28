@@ -1,7 +1,3 @@
-def prompt(message)
-  Kernel.puts("=> #{message}")
-end
-
 VALID_CHOICES = {
   'r': 'rock',
   'p': 'paper',
@@ -10,52 +6,58 @@ VALID_CHOICES = {
   'sp': 'spock'
 }
 
+def prompt(message)
+  Kernel.puts("=> #{message}")
+end
+
 def print_choices(hash)
   hash.each do |abbreviation, choice|
     prompt("Type '#{abbreviation}' for '#{choice}'")
   end
 end
 
-def win?(first, second)
-  (first == 'rock' && (second == 'scissors' || second == 'lizard')) ||
-    (first == 'paper' && (second == 'rock' || second == 'spock')) ||
-    (first == 'scissors' && (second == 'paper' || second == 'lizard')) ||
-    (first == 'lizard' && (second == 'spock' || second == 'paper')) ||
-    (first == 'spock' && (second == 'rock' || second == 'scissors'))
+def win?(first, second, hash)
+  hash[first.to_sym].include?(second)
 end
 
-def display_results(player, computer)
-  if win?(player, computer)
+OUTCOMES = {
+  rock: ["scissors", "lizard"],
+  paper: ["rock", "spock"],
+  scissors: ["paper", "lizard"],
+  lizard: ["spock", "paper"],
+  spock: ["rock", "scissors"]
+}
+
+def display_results(player, computer, hash)
+  if win?(player, computer, hash)
     "You won!"
-  elsif win?(computer, player)
+  elsif win?(computer, player, hash)
     "Computer won!"
   else
     "It's a tie!"
   end
 end
 
-# def print_grand_winner?(player, computer)
-#   player_counter = 0
-#   computer_counter = 0
-#   if win?(player, computer)
-#     player_counter += 1
-#     puts "You are the Grand Winner!" if player_counter == 5
-#   elsif win?(computer, player)
-#     computer_counter += 1
-#     puts "The Computer is the Grand Winner!" if computer_counter == 5
-#   end
+def grand_winner?(counter1, counter2)
+  if counter1 == 5
+    puts "You are the grand winner!"
+    exit
+  elsif counter2 == 5
+    puts "The computer is the grand winner!"
+    exit
+  end
+end
 
-#   exit if (player_counter == 5 || computer_counter == 5)
-# end
+player_counter = 0
+computer_counter = 0
 
-  
-loop do
+loop do # main loop
   choice = ''
   loop do
     print_choices(VALID_CHOICES)
     choice = Kernel.gets().chomp().downcase.to_sym
 
-    if VALID_CHOICES.has_key?(choice)
+    if VALID_CHOICES.key?(choice)
       choice = VALID_CHOICES[choice]
       break
     else
@@ -67,30 +69,19 @@ loop do
 
   prompt("You chose: #{choice}; Computer chose: #{computer_choice}.")
 
-  prompt(display_results(choice, computer_choice))
+  prompt(display_results(choice, computer_choice, OUTCOMES))
 
-  # player_counter = 0
-  # computer_counter = 0
+  if display_results(choice, computer_choice, OUTCOMES) == "You won!"
+    player_counter += 1
+  elsif display_results(choice, computer_choice, OUTCOMES) == "Computer won!"
+    computer_counter += 1
+  end
 
-  # if display_results(choice, computer_choice) == "You won!"
-  #   player_counter += 1
-  # elsif display_results(choice, computer_choice) == "Computer won!"
-  #   computer_counter += 1
-  # end
-
-  # if player_counter == 5
-  #   puts "You are the Grand Winner!"
-  #   exit
-  # elsif computer_counter == 5
-  #   puts "The Computer is the Grand Winner!"
-  #   exit
-  # end
-
-  # print_grand_winner?(choice, computer_choice)
+  grand_winner?(player_counter, computer_counter)
 
   prompt("Do you want to play again?")
   answer = Kernel.gets().chomp()
   break unless answer.downcase().start_with?('y')
-end
+end # end main loop
 
 prompt("Thank you for playing. Goodbye!")
