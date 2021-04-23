@@ -68,8 +68,38 @@ def joinor(array, delimiter=", ", conjuction="or")
   string
 end
 
+def find_at_risk_square(line, board, marker)
+  if board.values_at(*line).count(marker) == 2
+    board.select{|k,v| line.include?(k) && v == INITIAL_MARKER}.keys.first
+  else
+    nil
+  end
+end
+
+
 def computer_places_piece!(brd)
-  square = empty_squares(brd).sample
+  square = nil
+
+  WINNING_LINES.each do |line|
+    square = find_at_risk_square(line, brd, COMPUTER_MARKER)
+    break if square
+  end
+
+  if !square
+    WINNING_LINES.each do |line|
+      square = find_at_risk_square(line, brd, PLAYER_MARKER)
+      break if square
+    end
+  end
+
+  if !square && brd[5] == " "
+    square = 5
+  end
+
+  if !square
+    square = empty_squares(brd).sample
+  end
+
   brd[square] = COMPUTER_MARKER
 end
 
@@ -94,6 +124,16 @@ end
 
 player_wins = 0
 computer_wins = 0
+player_first = true
+
+# prompt "Welcome to tic-tac-toe!"
+# prompt "Would you like to go first? (type 'y' or 'n')"
+# turn_choice = gets.chomp
+# player_first = false unless turn_choice.downcase.start_with?('y')
+
+prompt "Welcome to tic-tac-toe!"
+player_first = [true,false].sample
+player_first ? prompt("You will go first!") : prompt("Computer will go first!")
 
 loop do # main loop begins
   board = initialize_board
@@ -101,11 +141,21 @@ loop do # main loop begins
   loop do
     display_board(board)
 
-    player_places_piece!(board)
-    break if someone_won?(board) || board_full?(board)
+    if player_first
+      player_places_piece!(board)
+      break if someone_won?(board) || board_full?(board)
 
-    computer_places_piece!(board)
-    break if someone_won?(board) || board_full?(board)
+      computer_places_piece!(board)
+      break if someone_won?(board) || board_full?(board)
+    else
+      computer_places_piece!(board)
+      break if someone_won?(board) || board_full?(board)
+
+      display_board(board)
+
+      player_places_piece!(board)
+      break if someone_won?(board) || board_full?(board)
+    end
   end
 
   display_board(board)
@@ -117,7 +167,6 @@ loop do # main loop begins
     elsif detect_winner(board) == "Computer"
       computer_wins += 1
     end
-    # binlding.pry
   else
     prompt "It's a tie!"
   end

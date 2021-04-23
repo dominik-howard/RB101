@@ -68,6 +68,6 @@ p time_of_day(3000) == "02:00"
 p time_of_day(800) == "13:20"
 p time_of_day(-4231) == "01:29"
 
-1. once calcuation is finished, add it to Time.new(0) and set that
-   to a variable
-2. use interpolation to return the hh:mm formatting
+# 1. once calcuation is finished, add it to Time.new(0) and set that
+#    to a variable
+# 2. use interpolation to return the hh:mm formatting
