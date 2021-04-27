@@ -1,26 +1,17 @@
-# write a method that takes a string with one or more space separated
-# words and returns a hash that sshows the number of words of different sizes
+# word_sizes('Four score and seven.') == { 3 => 1, 4 => 1, 5 => 2 }
+# word_sizes('Hey diddle diddle, the cat and the fiddle!') == { 3 => 5, 6 => 3 }
+# word_sizes("What's up doc?") == { 5 => 1, 2 => 1, 3 => 1 }
+# word_sizes('') == {}
 
-# words consist of any string of characters that do not include a space
-
-# 1. create array of words from strings, separated by space
-# 2. iterate using each with object (hash)
-# 3. if hash.has_key?(word.length)
-#       then hash[word.length] += 1
-# else
-#     hash[word.length] = 1
-# 4. return hash
+# it's is 3, not 4
 
 def word_sizes(string)
   string.split(" ").each_with_object({}) do |word, hash|
-    word = word.delete("^A-Za-z")
-    hash.has_key?(word.length) ? hash[word.length] += 1 : hash[word.length] = 1
-    hash
+    word = word.delete('^A-Za-z')
+    length = word.length
+    hash.key?(length) ? hash[length] += 1 : hash[length] = 1
   end
 end
-
-# modify the method to exlude non-letters when determining
-# word size
 
 p word_sizes('Four score and seven.') == { 3 => 1, 4 => 1, 5 => 2 }
 p word_sizes('Hey diddle diddle, the cat and the fiddle!') == { 3 => 5, 6 => 3 }
